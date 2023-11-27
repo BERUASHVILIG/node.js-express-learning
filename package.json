@@ -1,0 +1,12 @@
+{
+  "name": "node.js-tutorial-express",
+  "version": "1.0.0",
+  "description": "this is nodejs learning file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Giorgi Beruashvili",
+  "license": "ISC"
+}
