@@ -35,7 +35,100 @@
 // import exported data
 // const car = require("./car");
 // const { data } = require("./car");
-const { car1, car2 } = require("./car");
+// const { car1, car2 } = require("./car");
 
-console.log(JSON.stringify(car1, null, 2));
-console.log(JSON.stringify(car2, undefined, 2));
+// console.log(JSON.stringify(car1, null, 2));
+// console.log(JSON.stringify(car2, undefined, 2));
+
+// learn node file system and path modules
+
+const path = require("path");
+
+const filePath = "C:UsersUserDesktop/node.js-tutorial-express/files/sample.txt";
+
+// directory name
+// console.log(path.dirname(filePath), "dirname");
+// basename
+// console.log(path.basename(filePath), "basename");
+// extension
+// console.log(path.extname(filePath), "extension");
+
+// const sampleFile = "sample.txt";
+// console.log(path.join(path.dirname(filePath), sampleFile));
+
+// file systeme module
+const fs = require("fs");
+const fsPromise = require("fs").promises;
+
+// console.log(fs);
+
+// reading from a file - Async
+// fs.readFile(filePath, (error, data) => {
+//   if (error) {
+//     console.error("Error reading file:", error.message);
+//   } else {
+//     console.log(data.toString());
+//   }
+// });
+
+// syncron way
+// try {
+//   const data = fs.readFileSync(
+//     path.join(__dirname, "files", "sample.txt"),
+//     "utf-8"
+//   );
+//   console.log(data);
+// } catch (error) {
+//   console.log(error);
+// }
+
+// using promise read file
+
+// const fileReading = async () => {
+//   const filePath = path.join(__dirname, "files", "sample.txt");
+//   try {
+//     const data = await fsPromise.readFile(filePath, { encoding: "utf-8" });
+//     console.log("FS Promises", data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// fileReading();
+
+// Write in file
+
+const textFile = path.join(__dirname, "files", "text.txt");
+const content = "I am learning Node js";
+// fs.writeFile(textFile, content, (error) => {
+//   if (error) {
+//     console.error("Error reading file:", error.message);
+//   } else {
+//     console.log("Write operation Completed Successfully");
+//   }
+//   fs.readFile(textFile, "utf-8", (error, data) => {
+//     if (error) throw new Error("Error occurred");
+//     console.log(data);
+//   });
+// });
+
+const writingInFile = async () => {
+  try {
+    await fsPromise.writeFile(textFile, content);
+    await fsPromise.appendFile(textFile, "\n This is file appender");
+
+    // rename file
+    await fsPromise.rename(
+      textFile,
+      (__dirname, path.join(__dirname, "files", "newtxt.txt"))
+    );
+    const data = await fsPromise.readFile(
+      path.join(__dirname, "files", "newtxt.txt"),
+      "utf-8"
+    );
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+writingInFile();
