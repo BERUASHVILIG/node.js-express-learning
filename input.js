@@ -1,10 +1,10 @@
-const readLine = require("readline");
-const prompt = require("prompt-sync")();
+// const readLine = require("readline");
+// const prompt = require("prompt-sync")();
 
-const rl = readLine.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+// const rl = readLine.createInterface({
+//   input: process.stdin,
+//   output: process.stdout,
+// });
 
 // using read line can make question in terminal and then using callback function can back answer
 
@@ -15,6 +15,6 @@ const rl = readLine.createInterface({
 
 // if dont want to use callback function exist "prompt-sync" package which can make same thing
 
-const name = prompt("What is your name?");
-console.log(`Hi ${name}`);
-rl.close();
+// const name = prompt("What is your name?");
+// console.log(`Hi ${name}`);
+// rl.close();
