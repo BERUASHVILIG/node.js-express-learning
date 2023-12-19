@@ -1,17 +1,15 @@
 console.log("start operation");
 
-const sleep = (milliseconds) => {
-  const startTime = new Date().getTime();
+const sleep = async (milliseconds) => {
   console.log("operation is running");
-  while (new Date().getTime() < startTime + milliseconds) {
-    console.log("in progress");
-  }
-  console.log("Operation is done");
+  setTimeout(() => {
+    console.log("Operation is done");
+  }, milliseconds);
 };
 
 sleep(1000);
 
 console.log("do something else...");
 
-// In synchronous programming, the program executes one operation at a time,
-// and it waits for each operation to finish before moving on to the next one.
+// this example  is async setTimeout accept callback function and execute after 1 millisecond but int this time
+// it did not wait, yet it console logged after console.log("do something else..."); this
