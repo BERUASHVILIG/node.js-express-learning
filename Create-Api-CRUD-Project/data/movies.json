@@ -1,20 +1,20 @@
 [
   {
-    "id": 1,
+    "id": "e0c97df4-402b-464f-80d7-cacbfaf6441d",
     "title": "The Shawshank Redemption",
     "year": 1994,
     "genre": "Drama",
     "rating": 9.3
   },
   {
-    "id": 2,
+    "id": "973caaec-73ab-4eeb-88a8-1543a17d2b08",
     "title": "Inception",
     "year": 2010,
     "genre": "Action, Sci-Fi",
     "rating": 8.8
   },
   {
-    "id": 3,
+    "id": "9c303092-2234-4ea4-9a74-a102c75cd0c7",
     "title": "The Matrix",
     "year": 1999,
     "genre": "Action, Sci-Fi",
