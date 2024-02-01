@@ -29,5 +29,8 @@ module.exports = (req, res) => {
       res.writeHead(204, { "Content-Type": "application/json" });
       res.end(JSON.stringify(req.movies));
     }
+  } else {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ title: "NOT Found", message: "Route not found" }));
   }
 };
