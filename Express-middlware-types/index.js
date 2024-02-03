@@ -5,42 +5,46 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// Application-Level Middleware
+// Built-in Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// Application-Level Middleware
 const loggerMiddleware = (req, res, next) => {
   console.log(`${new Date()} ---- Request [${req.method}] --- [${req.url}]`);
   next();
 };
 app.use(loggerMiddleware);
-// Third party Middleware
-// Router-Level Middleware
 
-app.use("/api/users", router);
+// Third-party Middleware
+// Router-Level Middleware
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
 
 const fakeAuth = (req, res, next) => {
-  const authStatus = false;
+  const authStatus = true;
   if (authStatus) {
     console.log(`User Auth status  ${authStatus}`);
     next();
   } else {
     res.status(401);
-    throw new Error("User is not auhtorized");
+    throw new Error("User is not authorized");
   }
 };
 
 const getUsers = (req, res) => {
   res.json({ message: "Get All users" });
 };
+
 const createUser = (req, res) => {
+  console.log("This is request body received from client", req.body);
   res.json({ message: "Create new user" });
 };
 
 router.use(fakeAuth);
 router.route("/").get(getUsers).post(createUser);
 
-// Built-in Middleware
 // Error-handling middleware
-
 const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
   res.status(statusCode);
@@ -54,12 +58,12 @@ const errorHandler = (err, req, res, next) => {
     case 500:
       res.json({ title: "Server Error", message: err.message });
       break;
-
     default:
       break;
   }
 };
 
+app.use("/api/users", router);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
