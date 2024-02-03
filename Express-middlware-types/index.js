@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const router = express.Router();
 require("dotenv").config();
 
@@ -8,6 +9,7 @@ const PORT = process.env.PORT || 5001;
 // Built-in Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/static", express.static(path.join(__dirname, "public")));
 
 // Application-Level Middleware
 const loggerMiddleware = (req, res, next) => {
