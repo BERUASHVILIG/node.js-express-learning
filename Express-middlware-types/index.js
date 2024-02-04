@@ -1,6 +1,9 @@
 const express = require("express");
 const path = require("path");
+const multer = require("multer");
+const logger = require("morgan");
 const router = express.Router();
+const upload = multer({ dest: "./public/uploads" });
 require("dotenv").config();
 
 const app = express();
@@ -19,6 +22,9 @@ const loggerMiddleware = (req, res, next) => {
 app.use(loggerMiddleware);
 
 // Third-party Middleware
+
+app.use(logger("combined"));
+
 // Router-Level Middleware
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -65,8 +71,21 @@ const errorHandler = (err, req, res, next) => {
   }
 };
 
+app.post("/upload", upload.single("image"), (req, res, next) => {
+  console.log(req.file, req.body);
+  res.send(req.file);
+  (err, req, res, next) => {
+    res.status(400).send({ err: err.message });
+  };
+});
+
 app.use("/api/users", router);
+// app.use("/api/users", router);
 app.use(errorHandler);
+app.all("*", (req, res) => {
+  res.status(404);
+  throw new Error("Route not found");
+});
 
 app.listen(PORT, () => {
   console.log(`Server listen on port ${PORT}`);
