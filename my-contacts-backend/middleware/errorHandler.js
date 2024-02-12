@@ -1,6 +1,17 @@
 const { constants } = require("../constants");
+
 const errorHandler = (err, req, res, next) => {
-  const statusCode = res.statusCode ? res.statusCode : 500;
+  let statusCode = res.statusCode;
+
+  // If statusCode is not set or is 200, default it to 500
+  if (!statusCode || statusCode === 200) {
+    statusCode = 500;
+  }
+
+  // Set the response status code
+  res.status(statusCode);
+
+  // Send the error response
   switch (statusCode) {
     case constants.VALIDATION_ERROR:
       res.json({
@@ -31,15 +42,12 @@ const errorHandler = (err, req, res, next) => {
       });
       break;
     case constants.SERVER_ERROR:
+    default:
       res.json({
-        title: "Forbidden",
+        title: "Server Error",
         message: err.message,
         stackTrace: err.stack,
       });
-      break;
-
-    default:
-      console.log("No error all good");
       break;
   }
 };
