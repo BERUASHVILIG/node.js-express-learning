@@ -7,11 +7,12 @@ const {
   userLogin,
   currentUser,
 } = require("../controllers/userController");
+const validateToken = require("../middleware/validateTokenHandler");
 
 router.route("/register").post(registerUser);
 
 router.route("/login").post(userLogin);
 
-router.route("/current").post(currentUser);
+router.get("/current", validateToken, currentUser);
 
 module.exports = router;
